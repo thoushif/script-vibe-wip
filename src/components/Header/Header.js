@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Home Page
-export const Header = () => <Title>Script-vibe</Title>;
+export const Header = () => <Title>Script-vibe!</Title>;
 
 const Title = styled.div`
   background: linear-gradient(lightblue, #dfdcda);
