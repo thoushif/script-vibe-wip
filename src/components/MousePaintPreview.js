@@ -8,7 +8,6 @@ import styled from "styled-components";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import { Dialog, Tooltip } from "@material-ui/core";
 import ListAltRoundedIcon from "@material-ui/icons/ListAltRounded";
-import abc from "../../public/3077.png";
 import OthersLetterPreview from "./ShowNames/OthersLetterPreview";
 
 export default function MousePaintPreview({ lang, letter }) {
