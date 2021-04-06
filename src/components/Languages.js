@@ -2,9 +2,10 @@ import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "./firebase";
 import styled from "styled-components";
-import { Container, Grid, Paper } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 
-export default function Languages({ languageprop }) {
+export default function Languages(props) {
+  const languageprop = props.languageprop;
   const [langDB, setLangDB] = useState([]);
   useEffect(() => {
     db.collection("languages").onSnapshot((snapshot) => {
@@ -25,10 +26,11 @@ export default function Languages({ languageprop }) {
               direction="row"
               justify="flex-start"
               alignItems="flex-start"
+              spacing={5}
             >
               <Grid item>
                 <Link className="language" to={`/draw/${lang}`}>
-                  {lang.toUpperCase()}
+                  <Typography>{lang.toUpperCase()}</Typography>
                 </Link>
               </Grid>
             </Grid>
@@ -37,7 +39,7 @@ export default function Languages({ languageprop }) {
       ) : (
         <LanguageItem key={languageprop}>
           <Link className="language" to={`/draw/${languageprop}`}>
-            {languageprop.toUpperCase()}
+            {languageprop.toUpperCase()} {props.children}
           </Link>
         </LanguageItem>
       )}

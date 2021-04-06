@@ -8,6 +8,8 @@ import { UserContext } from "./providers/UserProvider";
 
 import ShowNames from "./ShowNames/ShowNames";
 import LetterPreview from "./ShowNames/LetterPreview";
+import HomeIcon from "@material-ui/icons/Home";
+import { Typography } from "@material-ui/core";
 
 export default function Home() {
   const user = useContext(UserContext);
@@ -15,18 +17,18 @@ export default function Home() {
     <Router>
       <Container>
         <Link className="name-title" to="/">
-          Hello, {user.displayName}
+          <HomeIcon /> Hello, {user.displayName}
         </Link>
+        <Button className="logout" onClick={logOut}>
+          Logout
+        </Button>
         <MenuItemContainer>
           {/* <Link to="/see-your-name">See Your Name</Link> */}
-          <LanguageItem key="all-languages">
+          {/* <LanguageItem key="all-languages">
             <Link className="language" to={`/draw`}>
               ALL LANGUAGES
             </Link>
-          </LanguageItem>
-          <Button className="logout" onClick={logOut}>
-            Logout
-          </Button>
+          </LanguageItem> */}
         </MenuItemContainer>
         <Switch>
           <Route path="/" exact component={Header} />
@@ -49,19 +51,25 @@ const Header = () => (
 // Draw Page
 const Draw = () => (
   <Fragment>
+    {" "}
     <Languages />
   </Fragment>
 );
 
 const FakeText = () => (
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
+  <Typography>
+    <p>
+      The Place where you can show how do you draw the letters of your language
+    </p>
+    <p>
+      If you start learning new language, put in the drawing and seek the
+      quality of your letter
+    </p>
+    <p>
+      These are the languages currently we can support!
+      <Languages />
+    </p>
+  </Typography>
 );
 
 const Button = styled.button`
@@ -71,6 +79,8 @@ const Button = styled.button`
   color: palevioletred;
   margin: 0 1em;
   padding: 0.25em 1em;
+
+  float: right;
 `;
 const Container = styled.div`
   margin: 0 100px 10px 100px;
@@ -89,4 +99,5 @@ const LanguageItem = styled.div`
   vertical-align: center;
   font-size: 150%;
   padding-right: 10px;
+  margin-bottom: 30px;
 `;

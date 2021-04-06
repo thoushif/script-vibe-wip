@@ -15,8 +15,8 @@ body {
 
 .circleBase {
   border-radius: 50%;
-  /* behavior: url(PIE.htc); remove if you don't care about IE8 */
-  background: black;
+  border: 0.5px outset white;
+  /* border: 1px; */
   padding: 2px;
   justify-content: center;
   cursor: pointer;
@@ -36,4 +36,11 @@ body {
 }
 .draw {
   margin: auto 40px;
+}
+
+.show-only-drawn {
+  float: right;
+}
+.letter-head {
+  font-size: 5rem;
 }
