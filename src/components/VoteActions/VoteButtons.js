@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import firebase from "firebase/app";
 import ThumbUpAltTwoToneIcon from "@material-ui/icons/ThumbUpAltTwoTone";
 import ThumbDownAltTwoToneIcon from "@material-ui/icons/ThumbDownAltTwoTone";
-import { Tooltip } from "@material-ui/core";
+import { Button, Tooltip, Typography } from "@material-ui/core";
 
 export default function VoteButtons({ letter, userId }) {
   const user = useContext(UserContext);
@@ -100,23 +100,20 @@ export default function VoteButtons({ letter, userId }) {
   };
   return (
     <div>
-      Votes {voteCount ? voteCount : 0}
-      <button disabled={upvoteDisabled} onClick={() => vote(true)}>
-        <Tooltip title="Upvote">
+      <Typography>Likes {voteCount ? voteCount : 0}</Typography>
+      <Button disabled={upvoteDisabled} onClick={() => vote(true)}>
+        <Tooltip title="Like">
           <ThumbUpAltTwoToneIcon
-            style={{ cursor: "pointer" }}
+            // style={{ cursor: upvoteDisabled ? "not-allowed" : "pointer" }}
             fontSize="small"
           />
         </Tooltip>
-      </button>
-      <button disabled={downvoteDisabled} onClick={() => vote(false)}>
-        <Tooltip title="Downvote">
-          <ThumbDownAltTwoToneIcon
-            style={{ cursor: "pointer" }}
-            fontSize="small"
-          />
+      </Button>
+      <Button disabled={downvoteDisabled} onClick={() => vote(false)}>
+        <Tooltip title="Dislike">
+          <ThumbDownAltTwoToneIcon fontSize="small" />
         </Tooltip>
-      </button>
+      </Button>
     </div>
   );
 }

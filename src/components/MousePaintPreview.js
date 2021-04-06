@@ -6,7 +6,7 @@ import { db } from "./firebase";
 import VoteButtons from "./VoteActions/VoteButtons";
 import styled from "styled-components";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
-import { Dialog, Tooltip } from "@material-ui/core";
+import { Button, Dialog, Tooltip, Typography } from "@material-ui/core";
 import ListAltRoundedIcon from "@material-ui/icons/ListAltRounded";
 import OthersLetterPreview from "./ShowNames/OthersLetterPreview";
 
@@ -116,7 +116,7 @@ export default function MousePaintPreview({ lang, letter }) {
       )}
       {paintCanvas.saveData && showCanvas === "false" ? (
         <Fragment>
-          Your Drawing!
+          <Typography> Your Drawing!</Typography>
           <CanvasDraw
             disabled
             // imgSrc="https://cdn.pixabay.com/photo/2020/09/24/07/59/telugu-5597907_960_720.png"
@@ -128,32 +128,36 @@ export default function MousePaintPreview({ lang, letter }) {
             gridColor="green"
             loadTimeOffset={paintCanvas.loadTimeOffset}
           />
-          Votes:{paintCanvas.votes}
-          {showCanvas === "false" && (
-            <button
-              onClick={() => {
-                setShowCanvas("true");
-              }}
-            >
-              <Tooltip title="Edit">
-                <EditRoundedIcon fontSize="small" />
-              </Tooltip>
-            </button>
-          )}
+          <Typography>
+            Likes: {paintCanvas.votes}
+            {showCanvas === "false" && (
+              <Button
+                onClick={() => {
+                  setShowCanvas("true");
+                }}
+              >
+                <Tooltip title="Edit">
+                  <EditRoundedIcon fontSize="small" />
+                </Tooltip>
+              </Button>
+            )}
+          </Typography>
         </Fragment>
       ) : (
         showCanvas === "false" && (
           <Fragment>
-            <p>You have not drawn {letter} yet! add in yours</p>
-            <button
-              onClick={() => {
-                setShowCanvas("true");
-              }}
-            >
-              <Tooltip title="Draw">
-                <EditRoundedIcon fontSize="small" />
-              </Tooltip>
-            </button>
+            <Typography>
+              You have not drawn {letter} yet! add in yours
+              <Button
+                onClick={() => {
+                  setShowCanvas("true");
+                }}
+              >
+                <Tooltip title="Draw">
+                  <EditRoundedIcon fontSize="small" />
+                </Tooltip>
+              </Button>
+            </Typography>
           </Fragment>
         )
       )}
@@ -166,13 +170,15 @@ export default function MousePaintPreview({ lang, letter }) {
             role="img"
             aria-label="open"
           >
-            {otherPaints.length} other(s) drew
-            <Tooltip title="Show">
-              <ListAltRoundedIcon
-                style={{ float: "right", cursor: "pointer" }}
-                fontSize="small"
-              />
-            </Tooltip>
+            <Typography>
+              {otherPaints.length} other(s) drew
+              <Tooltip title="Show">
+                <ListAltRoundedIcon
+                  style={{ float: "right", cursor: "pointer" }}
+                  fontSize="small"
+                />
+              </Tooltip>
+            </Typography>
           </div>
           {showOtherPaints &&
             otherPaints.map((eachPaint) => {
@@ -180,6 +186,7 @@ export default function MousePaintPreview({ lang, letter }) {
                 <Fragment key={letter + lang + eachPaint.userId}>
                   <hr></hr>
                   <div
+                    style={{ cursor: "pointer" }}
                     onClick={() => handleClickOpenPreview(eachPaint, letter)}
                   >
                     <CanvasDraw
@@ -201,7 +208,9 @@ export default function MousePaintPreview({ lang, letter }) {
                       canvasPreviewState={canvasPreviewState}
                     />
                   </Dialog>
-                  <small>by {eachPaint.userName}</small>
+                  <Typography>
+                    <small>by {eachPaint.userName}</small>{" "}
+                  </Typography>
                   <VoteButtons
                     key={eachPaint.userId + letter}
                     letter={letter}

@@ -1,4 +1,4 @@
-import { ButtonGroup, Button, Tooltip } from "@material-ui/core";
+import { ButtonGroup, Button, Tooltip, Typography } from "@material-ui/core";
 
 import { Fragment, useEffect, useState } from "react";
 import CanvasDraw from "react-canvas-draw";
@@ -36,7 +36,9 @@ export default function OthersLetterPreview({ canvasPreviewState }) {
         canvasPreviewState={canvasPreviewState}
         previewTime={previewTime}
       />
-      <small>by {canvasPreviewState.eachPaint.userName}</small>
+      <Typography>
+        <small>by {canvasPreviewState.eachPaint.userName}</small>{" "}
+      </Typography>
       <VoteButtons
         key={
           canvasPreviewState.eachPaint.userId +
@@ -50,9 +52,7 @@ export default function OthersLetterPreview({ canvasPreviewState }) {
   );
 }
 function OthersCanvasDraw({ canvasPreviewState, previewTime }) {
-  useEffect(() => {
-    console.log("preview time changed", previewTime);
-  }, [previewTime]);
+  useEffect(() => {}, [previewTime]);
   return (
     <Fragment>
       <CanvasDraw

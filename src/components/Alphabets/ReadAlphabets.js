@@ -1,13 +1,15 @@
 import "../../styles.css";
 import { useContext, useEffect, useState } from "react";
 import langData from "../../data/languagedata.json";
-import Languages from "../Languages";
 import { ShowAlphabets } from "./ShowAlphabets";
+import { Voice } from "./Voice";
 import styled from "styled-components";
 import MousePaintPreview from "../MousePaintPreview";
 import { db } from "../firebase";
-import firebase from "firebase/app";
 import { UserContext } from "../providers/UserProvider";
+import { Button, Grid, Typography } from "@material-ui/core";
+import { Usage } from "./Usage";
+
 export default function ReadAlphabets({
   match: {
     params: { lang }
@@ -57,22 +59,27 @@ export default function ReadAlphabets({
   };
   return (
     <div>
-      <p>Language : {lang.toUpperCase()}</p>
-      {/* <p>Alphabets Filtered : {alphabetsFiltered.substring(1)}</p> */}
-      Alphabets : {showOnlyDrawn ? "Showing only drawn by you" : "Showing all"}
+      <Typography>
+        Language : {lang.toUpperCase()}
+        {/* <p>Alphabets Filtered : {alphabetsFiltered.substring(1)}</p> */}
+      </Typography>
+      <Typography>
+        Alphabets :{" "}
+        {showOnlyDrawn ? "Showing only drawn by you" : "Showing all"}
+      </Typography>
       <ShowAlphabets
         alphabets={showOnlyDrawn ? alphabetsFiltered.substring(1) : alphabets}
         lang={lang}
       />
-      <FilterContainer>
-        <button
-          onClick={() => {
-            setShowOnlyDrawn(!showOnlyDrawn);
-          }}
-        >
-          {showOnlyDrawn ? "Show all 👁️ " : "Show only drawn by me 👁️"}
-        </button>
-      </FilterContainer>
+      <Button
+        className="show-only-drawn"
+        size="small"
+        onClick={() => {
+          setShowOnlyDrawn(!showOnlyDrawn);
+        }}
+      >
+        {showOnlyDrawn ? "Show all " : "Show only drawn by me"}
+      </Button>
       {/* todo: this will be the social feed  NOT for all alphabets*/}
       <MousePaintPreviewContainer>
         {(showOnlyDrawn ? alphabetsFiltered.substring(1) : alphabets) &&
@@ -80,8 +87,34 @@ export default function ReadAlphabets({
             .split(",")
             .map((a) => (
               <MousePaintPreviewItem key={lang + a}>
-                {a}
-                <MousePaintPreview lang={lang} letter={a} />
+                <Grid
+                  container
+                  spacing={0}
+                  justify="space-evenly"
+                  alignItems="center"
+                >
+                  <Grid
+                    alignItems="center"
+                    key={lang + a + "letter"}
+                    item
+                    xs="5"
+                  >
+                    <div>
+                      <span className="letter-head">{a}</span>
+                      <Typography>Type: </Typography>
+                      <Typography>Language: {lang}</Typography>
+                      <Typography>
+                        Sound: <Voice letter={a} lang={lang} />
+                      </Typography>
+                      <Typography>
+                        Usage: <Usage letter={a} lang={lang} />
+                      </Typography>
+                    </div>
+                  </Grid>
+                  <Grid key={lang + a + "canvas"} item xs="5">
+                    <MousePaintPreview lang={lang} letter={a} />
+                  </Grid>
+                </Grid>
               </MousePaintPreviewItem>
             ))}
       </MousePaintPreviewContainer>
@@ -97,12 +130,6 @@ const MousePaintPreviewContainer = styled.div`
 const FilterContainer = styled.div`
   /* display: flex; */
   float: right;
-  margin-bottom: 10px;
-  button {
-    color: blue;
-    border-radius: 6px;
-    border: 2px solid #aea7a1;
-  }
 `;
 const MousePaintPreviewItem = styled.div`
   background-color: white;
