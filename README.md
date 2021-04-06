@@ -1,2 +1,2 @@
-# script-vibe-wip
+# scribe-vibe
 Created with CodeSandbox
